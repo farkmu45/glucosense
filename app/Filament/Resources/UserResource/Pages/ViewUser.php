@@ -20,7 +20,7 @@ class ViewUser extends ViewRecord
                 ->schema([
                     TextEntry::make('name'),
                     TextEntry::make('email'),
-                ])->columns()
+                ])->columns(),
         ]);
     }
 

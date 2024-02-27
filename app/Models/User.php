@@ -5,8 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Filament\Models\Contracts\FilamentUser;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -31,17 +31,18 @@ class User extends Authenticatable implements FilamentUser
         'password' => 'hashed',
     ];
 
-
     public function canAccessPanel(Panel $panel): bool
     {
         return true;
     }
 
-    public function isAdmin() : bool {
+    public function isAdmin(): bool
+    {
         return $this->role === 1;
     }
 
-    public function isRegular() : bool {
+    public function isRegular(): bool
+    {
         return $this->role === 2;
     }
 }
