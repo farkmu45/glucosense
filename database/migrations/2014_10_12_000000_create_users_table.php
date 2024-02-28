@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('gender', ['MALE', 'FEMALE']);
+            $table->unsignedTinyInteger('age');
+            $table->float('weight');
+            $table->boolean('has_diabetes_history');
+            $table->float('last_glucose_check_value')->nullable();
+            $table->date('last_glucose_check_date')->nullable();
             $table->enum('role', [1, 2])->default(2);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

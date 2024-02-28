@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'role' => 1,
+            'age' => 0,
+            'weight' => 0,
+            'has_diabetes_history' => false
         ]);
     }
 }
