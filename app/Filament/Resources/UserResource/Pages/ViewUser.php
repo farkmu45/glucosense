@@ -16,10 +16,35 @@ class ViewUser extends ViewRecord
     public function infolist(Infolist $infolist): Infolist
     {
         return $infolist->schema([
-            Section::make()
+            Section::make('General Data')
                 ->schema([
                     TextEntry::make('name'),
                     TextEntry::make('email'),
+                    TextEntry::make('gender'),
+                    TextEntry::make('age'),
+                ])->columns(),
+            Section::make('Diabetes Related Data')
+                ->schema([
+                    TextEntry::make('has_diabetes_history')
+                        ->badge()
+                        ->color(fn (int $state): string => match ($state) {
+                            0 => 'success',
+                            1 => 'danger',
+                        })
+                        ->formatStateUsing(function (int $state) {
+                            switch ($state) {
+                                case 0:
+                                    return 'No';
+                                    break;
+
+                                case 1:
+                                    return 'Yes';
+                                    break;
+                            }
+                        })->columnSpanFull(),
+                    TextEntry::make('last_glucose_check_date'),
+                    TextEntry::make('last_glucose_check_value')
+                        ->label('Last glucose check result'),
                 ])->columns(),
         ]);
     }

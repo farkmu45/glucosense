@@ -9,13 +9,17 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
@@ -33,7 +37,13 @@ class UserResource extends Resource
                 TextColumn::make('email')
                     ->sortable()
                     ->searchable(),
+                TextColumn::make('gender')
+                    ->formatStateUsing(fn (string $state): string => ucfirst(strtolower($state)))
+                    ->sortable(),
+                TextColumn::make('age')
+                    ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Created')
                     ->since()
                     ->sortable(),
             ])
@@ -41,7 +51,7 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -49,7 +59,8 @@ class UserResource extends Resource
                 ]),
             ])
             ->recordUrl(fn (Model $record): string => route('filament.admin.resources.users.view', ['record' => $record]))
-            ->defaultSort('created_at', 'desc');
+            ->defaultSort('created_at', 'desc')
+            ->modifyQueryUsing(fn (Builder $query) => $query->where('role', 2));
     }
 
     public static function getRelations(): array
