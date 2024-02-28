@@ -2,8 +2,6 @@
 
 namespace App\Filament\Pages\Auth;
 
-use Filament\Pages\Page;
-
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\TextInput;
@@ -23,7 +21,7 @@ class EditProfile extends BaseEditProfile
                     ->required()
                     ->options([
                         'MALE' => 'Male',
-                        'FEMALE' => 'Female'
+                        'FEMALE' => 'Female',
                     ])
                     ->inline(),
                 TextInput::make('age')

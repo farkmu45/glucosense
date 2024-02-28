@@ -9,7 +9,6 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Pages\Auth\Register as BaseRegister;
 
-
 class Register extends BaseRegister
 {
     public function form(Form $form): Form
@@ -22,7 +21,7 @@ class Register extends BaseRegister
                     ->required()
                     ->options([
                         'MALE' => 'Male',
-                        'FEMALE' => 'Female'
+                        'FEMALE' => 'Female',
                     ])
                     ->inline(),
                 TextInput::make('age')

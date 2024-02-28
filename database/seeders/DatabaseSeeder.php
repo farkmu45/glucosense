@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'role' => 1,
             'age' => 0,
             'weight' => 0,
-            'has_diabetes_history' => false
+            'has_diabetes_history' => false,
         ]);
     }
 }
