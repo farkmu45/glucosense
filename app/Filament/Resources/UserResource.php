@@ -58,8 +58,7 @@ class UserResource extends Resource
                 ]),
             ])
             ->recordUrl(fn (Model $record): string => route('filament.admin.resources.users.view', ['record' => $record]))
-            ->defaultSort('created_at', 'desc')
-            ->modifyQueryUsing(fn (Builder $query) => $query->where('role', 2));
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array

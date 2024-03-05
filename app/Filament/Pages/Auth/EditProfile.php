@@ -27,34 +27,29 @@ class EditProfile extends BaseEditProfile
                 TextInput::make('age')
                     ->maxValue(200)
                     ->numeric()
-                    ->hidden(auth()->user()->isAdmin())
                     ->minValue(1)
                     ->required(),
                 TextInput::make('weight')
                     ->suffix('kg')
                     ->numeric()
-                    ->hidden(auth()->user()->isAdmin())
                     ->maxValue(1000)
                     ->minValue(1)
                     ->required(),
                 Radio::make('has_diabetes_history')
                     ->label('Has diabetes history?')
                     ->required()
-                    ->hidden(auth()->user()->isAdmin())
                     ->boolean()
                     ->inline(),
                 TextInput::make('last_glucose_check_value')
                     ->label('Last glucose check result')
                     ->suffix('mg/dl')
                     ->maxValue(2000)
-                    ->hidden(auth()->user()->isAdmin())
                     ->minValue(1)
                     ->numeric()
                     ->live(),
                 DatePicker::make('last_glucose_check_date')
                     ->native(false)
                     ->maxDate(now())
-                    ->hidden(auth()->user()->isAdmin())
                     ->disabled(fn (Get $get) => $get('last_glucose_check_value') == null)
                     ->requiredWith('last_glucose_check_value'),
                 $this->getPasswordFormComponent(),

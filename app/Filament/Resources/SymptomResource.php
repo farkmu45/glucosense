@@ -6,6 +6,9 @@ use App\Filament\Resources\SymptomResource\Pages;
 use App\Filament\Resources\SymptomResource\RelationManagers;
 use App\Models\Symptom;
 use Filament\Forms;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -20,13 +23,35 @@ class SymptomResource extends Resource
 {
     protected static ?string $model = Symptom::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-table-cells';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-
+                Section::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->maxLength(200)
+                            ->required(),
+                        TextInput::make('question')
+                            ->maxLength(200)
+                            ->required(),
+                        TextInput::make('probability')
+                            ->numeric()
+                            ->maxValue(1)
+                            ->columnSpanFull()
+                            ->minValue(0)
+                            ->required(),
+                        Checkbox::make('is_diabetes_type_1')
+                            ->columnSpanFull()
+                            ->required()
+                            ->label('Diabetes type 1?'),
+                        Checkbox::make('is_diabetes_type_2')
+                            ->columnSpanFull()
+                            ->required()
+                            ->label('Diabetes type 2?'),
+                    ])->columns()
             ]);
     }
 
