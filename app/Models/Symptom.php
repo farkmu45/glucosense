@@ -12,4 +12,12 @@ class Symptom extends Model
     protected $guarded = ['id'];
 
     public $timestamps = false;
+
+    protected static function booted(): void
+    {
+        static::saved(function (Symptom $symptom) {
+            $symptom->plausability = 1 - $symptom->probability;
+            $symptom->saveQuietly();
+        });
+    }
 }
