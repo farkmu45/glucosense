@@ -26,7 +26,7 @@ class Calculation extends Page
 
     public function form(Form $form): Form
     {
-        $symptomps = Symptom::take(2)->get()->toArray();
+        $symptomps = Symptom::all()->toArray();
 
         $steps = array_map(fn ($symptom, $key) => Wizard\Step::make($key)
             ->label(null)
