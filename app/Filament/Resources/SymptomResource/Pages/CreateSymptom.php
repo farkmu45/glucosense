@@ -9,4 +9,10 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateSymptom extends CreateRecord
 {
     protected static string $resource = SymptomResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['plausability'] = 1 - $data['probability'];
+        return $data;
+    }
 }
