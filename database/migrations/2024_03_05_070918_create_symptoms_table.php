@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 200);
             $table->string('question', 200);
-            $table->boolean('is_diabetes_type_1');
-            $table->boolean('is_diabetes_type_2');
+            $table->boolean('is_diabetes_type_1')->default(false);
+            $table->boolean('is_diabetes_type_2')->default(false);
             $table->float('probability', unsigned: true);
             $table->float('plausability', unsigned: true);
         });

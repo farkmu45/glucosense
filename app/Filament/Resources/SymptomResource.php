@@ -45,11 +45,9 @@ class SymptomResource extends Resource
                             ->required(),
                         Checkbox::make('is_diabetes_type_1')
                             ->columnSpanFull()
-                            ->required()
                             ->label('Diabetes type 1?'),
                         Checkbox::make('is_diabetes_type_2')
                             ->columnSpanFull()
-                            ->required()
                             ->label('Diabetes type 2?'),
                     ])->columns()
             ]);
