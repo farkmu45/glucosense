@@ -3,26 +3,19 @@
 namespace App\Filament\User\Resources;
 
 use App\Filament\User\Resources\HistoryResource\Pages;
-use App\Filament\User\Resources\HistoryResource\RelationManagers;
 use App\Models\Calculation;
-use App\Models\History;
-use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\RepeatableEntry;
-use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\Tabs;
 use Filament\Infolists\Components\Tabs\Tab;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Infolists\Components\TextEntry\TextEntrySize;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class HistoryResource extends Resource
 {
@@ -76,9 +69,9 @@ class HistoryResource extends Resource
                                         IconEntry::make('answer')
                                             ->boolean(),
                                     ])
-                                    ->columns(2)
+                                    ->columns(2),
                             ]),
-                    ])->columnSpanFull()
+                    ])->columnSpanFull(),
             ]);
     }
 
@@ -89,7 +82,7 @@ class HistoryResource extends Resource
                 TextColumn::make('created_at')
                     ->date('Y-m-d'),
                 TextColumn::make('result')
-                    ->formatStateUsing(fn ($state) => $state == 'TYPE_2' ? 'Diabetest Type 2' : 'Diabetes Type 1')
+                    ->formatStateUsing(fn ($state) => $state == 'TYPE_2' ? 'Diabetest Type 2' : 'Diabetes Type 1'),
 
             ])
             ->filters([
