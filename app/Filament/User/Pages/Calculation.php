@@ -2,7 +2,6 @@
 
 namespace App\Filament\User\Pages;
 
-use App\ExpertSystem\DempsterShafer;
 use App\Models\Calculation as ModelsCalculation;
 use App\Models\Questionnaire;
 use App\Models\Symptom;
@@ -14,12 +13,10 @@ use Filament\Forms\Components\Wizard\Step;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
-use Filament\Support\Enums\IconPosition;
 use Illuminate\Support\Arr;
 
 class Calculation extends Page
 {
-
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.user.pages.calculation';
@@ -31,7 +28,6 @@ class Calculation extends Page
         $this->form->fill();
     }
 
-
     public function form(Form $form): Form
     {
         $symptomps = Symptom::all()->toArray();
@@ -39,13 +35,13 @@ class Calculation extends Page
         $steps = array_map(fn ($symptom, $key) => Step::make($key)
             ->label(null)
             ->schema([
-                TextInput::make('symptom' . $key)
+                TextInput::make('symptom'.$key)
                     ->default($symptom['id'])
                     ->hidden(),
-                Radio::make('answer' . $key)
+                Radio::make('answer'.$key)
                     ->required()
                     ->label($symptom['question'])
-                    ->boolean()
+                    ->boolean(),
             ]), $symptomps, array_keys($symptomps));
 
         return $form
@@ -58,7 +54,7 @@ class Calculation extends Page
                             ->label('Submit')
                             ->action('submit')
                             ->button()
-                    )
+                    ),
             ])
             ->statePath('data');
     }
@@ -71,8 +67,8 @@ class Calculation extends Page
             $data = $this->data;
 
             for ($i = 0; $i < count($data) / 2; $i++) {
-                $questionKey = "symptom" . $i;
-                $answerKey = "answer" . $i;
+                $questionKey = 'symptom'.$i;
+                $answerKey = 'answer'.$i;
                 array_push($result, ['symptom_id' => $data[$questionKey], 'answer' => (bool) $data[$answerKey]]);
             }
 

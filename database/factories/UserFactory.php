@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'gender' => fake()->randomElement(['MALE', 'FEMALE']),
             'age' => fake()->numberBetween(10, 20),
             'weight' => fake()->numberBetween(20, 50),
-            'has_diabetes_history'=> false,
+            'has_diabetes_history' => false,
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

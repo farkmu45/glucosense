@@ -3,21 +3,16 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SymptomResource\Pages;
-use App\Filament\Resources\SymptomResource\RelationManagers;
 use App\Models\Symptom;
-use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\BooleanColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SymptomResource extends Resource
 {
@@ -49,7 +44,7 @@ class SymptomResource extends Resource
                         Checkbox::make('is_diabetes_type_2')
                             ->columnSpanFull()
                             ->label('Diabetes type 2?'),
-                    ])->columns()
+                    ])->columns(),
             ]);
     }
 
@@ -75,7 +70,7 @@ class SymptomResource extends Resource
                     ->searchable(),
                 TextColumn::make('plausability')
                     ->sortable()
-                    ->searchable()
+                    ->searchable(),
             ])
             ->filters([
                 //
