@@ -59,6 +59,9 @@ class HistoryResource extends Resource
                                 TextEntry::make('result')
                                     ->label('Diagnosis')
                                     ->formatStateUsing(fn ($state) => $state == 'TYPE_2' ? 'Diabetest Type 2' : 'Diabetes Type 1'),
+                                TextEntry::make('recomendation')
+                                    ->label('Recomendation')
+                                    ->formatStateUsing(fn ($state) => $state == 'TYPE_2' ? 'Diabetest Type 2' : 'Diabetes Type 1'),
                             ]),
                         Tab::make('Questionaire')
                             ->schema([
