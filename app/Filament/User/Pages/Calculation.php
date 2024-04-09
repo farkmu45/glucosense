@@ -32,17 +32,34 @@ class Calculation extends Page
     {
         $symptomps = Symptom::all()->toArray();
 
-        $steps = array_map(fn ($symptom, $key) => Step::make($key)
-            ->label(null)
-            ->schema([
-                TextInput::make('symptom'.$key)
-                    ->default($symptom['id'])
-                    ->hidden(),
-                Radio::make('answer'.$key)
-                    ->required()
-                    ->label($symptom['question'])
-                    ->boolean(),
-            ]), $symptomps, array_keys($symptomps));
+        $chunks = array_chunk($symptomps, 4);
+
+        $steps = [];
+        $counter = 0;
+
+        foreach ($chunks as $key => $chunk) {
+            array_push($steps, Step::make($key)
+                ->label(null)
+                ->schema(function () use ($chunk, $counter) {
+                    $inputs = [];
+                    foreach ($chunk as $symptom) {
+                        $input = [
+                            TextInput::make('symptom' . $counter)
+                                ->default($symptom['id'])
+                                ->hidden(),
+                            Radio::make('answer' . $counter)
+                                ->required()
+                                ->label($symptom['question'])
+                                ->boolean(),
+                        ];
+
+                        $counter++;
+                        array_push($inputs, $input);
+                    }
+
+                    return array_merge(...$inputs);
+                }));
+        }
 
         return $form
             ->schema([
@@ -67,8 +84,8 @@ class Calculation extends Page
             $data = $this->data;
 
             for ($i = 0; $i < count($data) / 2; $i++) {
-                $questionKey = 'symptom'.$i;
-                $answerKey = 'answer'.$i;
+                $questionKey = 'symptom' . $i;
+                $answerKey = 'answer' . $i;
                 array_push($result, ['symptom_id' => $data[$questionKey], 'answer' => (bool) $data[$answerKey]]);
             }
 
