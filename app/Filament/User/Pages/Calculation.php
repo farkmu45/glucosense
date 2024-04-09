@@ -35,30 +35,36 @@ class Calculation extends Page
         $chunks = array_chunk($symptomps, 4);
 
         $steps = [];
+        $inputs = [];
         $counter = 0;
 
+        // Associate each input section
+        foreach ($chunks as $key => $chunk) {
+            $tempInputs = [];
+            foreach ($chunk as $symptom) {
+                $input = [
+                    TextInput::make('symptom' . $counter)
+                        ->default($symptom['id'])
+                        ->hidden(),
+                    Radio::make('answer' . $counter)
+                        ->required()
+                        ->label($symptom['question'])
+                        ->boolean(),
+                ];
+
+                $counter++;
+                array_push($tempInputs, $input);
+            }
+
+            array_push($inputs, $tempInputs);
+            $tempInputs = [];
+        }
+
+        // Associate the steps with the input
         foreach ($chunks as $key => $chunk) {
             array_push($steps, Step::make($key)
                 ->label(null)
-                ->schema(function () use ($chunk, $counter) {
-                    $inputs = [];
-                    foreach ($chunk as $symptom) {
-                        $input = [
-                            TextInput::make('symptom' . $counter)
-                                ->default($symptom['id'])
-                                ->hidden(),
-                            Radio::make('answer' . $counter)
-                                ->required()
-                                ->label($symptom['question'])
-                                ->boolean(),
-                        ];
-
-                        $counter++;
-                        array_push($inputs, $input);
-                    }
-
-                    return array_merge(...$inputs);
-                }));
+                ->schema(array_merge(...$inputs[$key])));
         }
 
         return $form
