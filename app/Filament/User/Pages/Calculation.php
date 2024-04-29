@@ -108,6 +108,8 @@ class Calculation extends Page
 
             $symptoms = Symptom::whereIn('id', $questionArr)->get()->toArray();
 
+            // Calculate diabetes type based on symptoms
+
             $calculationResult = ModelsCalculation::create(['user_id' => auth()->user()->id, 'result' => 'TYPE_1']);
             foreach ($result as $key => $item) {
                 $item['calculation_id'] = $calculationResult->id;
