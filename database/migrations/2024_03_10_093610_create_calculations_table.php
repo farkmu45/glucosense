@@ -18,7 +18,8 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->enum('result', ['TYPE_1', 'TYPE_2']);
+            $table->enum('result', ['TYPE_1', 'TYPE_2', 'TYPE_1_2', 'NONE']);
+            $table->float('value');
             $table->timestamps();
         });
     }
