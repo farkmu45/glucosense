@@ -58,10 +58,48 @@ class HistoryResource extends Resource
                                     ->date('Y-m-d'),
                                 TextEntry::make('result')
                                     ->label('Diagnosis')
-                                    ->formatStateUsing(fn ($state) => $state == 'TYPE_2' ? 'Diabetest Type 2' : 'Diabetes Type 1'),
-                                TextEntry::make('recomendation')
-                                    ->label('Recomendation')
-                                    ->formatStateUsing(fn ($state) => $state == 'TYPE_2' ? 'Diabetest Type 2' : 'Diabetes Type 1'),
+                                    ->formatStateUsing(function ($state) {
+                                        switch ($state) {
+                                            case 'TYPE_2':
+                                                return 'Type 2 Diabetes';
+                                            case 'TYPE_1':
+                                                return 'Type 1 Diabetes';
+                                            case 'TYPE_1_2':
+                                                return 'Either Type 2 Diabetes Or Type 1 Diabetes';
+                                            case 'NONE':
+                                                return 'Normal';
+                                        }
+                                    }),
+                                TextEntry::make('value'),
+                            ]),
+                        Tab::make('Recomendation')
+                            ->schema([
+                                TextEntry::make('result')
+                                    ->hiddenLabel()
+                                    ->markdown()
+                                    ->formatStateUsing(function ($state) {
+                                        switch ($state) {
+                                            case 'TYPE_2':
+                                                return "
+- Manage your diet: Focus on healthy foods with the right portions.  Reduce consumption of foods that are high in sugar, saturated fat and salt.  Prioritize foods that contain high fiber, such as vegetables, fruit and whole grains.
+- Exercise regularly: Get at least 150 minutes of physical activity per week.  Choose an activity you like, such as walking, cycling or swimming.
+- Lose weight: If you are overweight or obese, healthy weight loss can help improve insulin sensitivity and control blood sugar levels.
+- Following treatment: If you have been diagnosed with type 2 diabetes, your doctor may prescribe medication to help control blood sugar levels.  Make sure to follow the treatment according to the doctor's instructions.
+- Manage stress: Stress can affect blood sugar levels.  Find ways to manage stress, such as with meditation, yoga, or engaging in an enjoyable hobby.
+- Avoid smoking and excessive alcohol consumption: Smoking and excessive alcohol consumption can worsen diabetes and increase the risk of complications.
+                                                ";
+                                            case 'TYPE_1':
+                                                return "
+- Control blood sugar levels: People with type 1 diabetes need to control their blood sugar levels by using insulin regularly.  Insulin use must be in accordance with the doctor's instructions.
+- Manage your diet: It is important to follow a healthy diet by paying attention to carbohydrate, fat and protein intake.  Consult a nutritionist or doctor to get appropriate food recommendations.
+- Exercise: Regular exercise can help control blood sugar levels.  However, keep in mind that exercise can affect blood sugar levels, so it is necessary to monitor blood sugar before, during and after exercise.
+- Manage stress: Stress can affect blood sugar levels.  Find ways to manage stress, such as by meditation, yoga, or engaging in enjoyable activities.
+- Following treatment: It is important to follow the treatment prescribed by the doctor and have regular check-ups.
+                                               ";
+                                            default:
+                                                return "None";
+                                        }
+                                    }),
                             ]),
                         Tab::make('Questionaire')
                             ->schema([
@@ -85,7 +123,19 @@ class HistoryResource extends Resource
                 TextColumn::make('created_at')
                     ->date('Y-m-d'),
                 TextColumn::make('result')
-                    ->formatStateUsing(fn ($state) => $state == 'TYPE_2' ? 'Diabetest Type 2' : 'Diabetes Type 1'),
+                    ->formatStateUsing(function ($state) {
+                        switch ($state) {
+                            case 'TYPE_2':
+                                return 'Type 2 Diabetes';
+                            case 'TYPE_1':
+                                return 'Type 1 Diabetes';
+                            case 'TYPE_1_2':
+                                return 'Either Type 2 Diabetes Or Type 1 Diabetes';
+                            case 'NONE':
+                                return 'Normal';
+                        }
+                    }),
+                TextColumn::make('value'),
 
             ])
             ->filters([
