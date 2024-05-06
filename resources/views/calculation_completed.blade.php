@@ -56,12 +56,12 @@
                 <td class="sm-px-6" style="border-radius: 4px; background-color: #fff; padding: 48px; font-size: 16px; color: #334155; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05)">
                   <h2 style="font-size: 24px; font-weight: 700; color: #f59e0b">Glucosense</h2>
                   <h1 class="sm-leading-8" style="margin: 0 0 24px; font-size: 24px; font-weight: 600; color: #000">
-                    Hi, {{ $calculation->user->name }}
+                    Hi, {{$calculation->user->name}}
                   </h1>
                   <p style="margin: 0; line-height: 24px">
                     Your calculation has been completed, you can see the detail below
                   </p>
-                  <div style="margin-top: 20px; display: flex; flex-direction: column">
+                  <div style="margin-top: 20px">
                     <div>
                       <p style="font-size: 14px; font-weight: 500; text-transform: uppercase; color: #6b7280">RESULT</p>
                       <p style="color: #4b5563">
@@ -83,7 +83,7 @@
                     </div>
                     <div>
                       <p style="font-size: 14px; font-weight: 500; text-transform: uppercase; color: #6b7280;">SCORE</p>
-                      <p style="color: #4b5563;">{{ $calculation->value }}</p>
+                      <p style="color: #4b5563;">{{$calculation->value}}</p>
                     </div>
                     <div>
                       <p style="font-size: 14px; font-weight: 500; text-transform: uppercase; color: #6b7280;">TREATMENT</p>
