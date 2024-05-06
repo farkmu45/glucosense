@@ -2,6 +2,7 @@
 
 namespace App\Filament\User\Pages;
 
+use App\Mail\CalculationCompleted;
 use App\Models\Calculation as ModelsCalculation;
 use App\Models\Questionnaire;
 use App\Models\Symptom;
@@ -14,6 +15,7 @@ use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
 
 class Calculation extends Page
 {
@@ -217,6 +219,8 @@ class Calculation extends Page
                 $item['calculation_id'] = $calculationResult->id;
                 Questionnaire::create($item);
             }
+
+            Mail::to(request()->user())->send(new CalculationCompleted($calculationResult));
 
             Notification::make()
                 ->title('Saved successfully')
