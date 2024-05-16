@@ -5,6 +5,7 @@ namespace App\Filament\User\Pages;
 use App\Mail\CalculationCompleted;
 use App\Models\Calculation as ModelsCalculation;
 use App\Models\Questionnaire;
+use App\Models\Recomendation;
 use App\Models\Symptom;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Radio;
@@ -220,7 +221,13 @@ class Calculation extends Page
                 Questionnaire::create($item);
             }
 
-            Mail::to(request()->user())->send(new CalculationCompleted($calculationResult));
+            $recomendation = null;
+
+            if ($diabetesType == 'TYPE_1' || $diabetesType == 'TYPE_2') {
+                $recomendation = Recomendation::find($diabetesType);
+            }
+
+            Mail::to(request()->user())->send(new CalculationCompleted($calculationResult, $recomendation));
 
             Notification::make()
                 ->title('Saved successfully')

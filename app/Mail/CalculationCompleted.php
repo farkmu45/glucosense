@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Calculation;
+use App\Models\Recomendation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -18,7 +19,8 @@ class CalculationCompleted extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public Calculation $calculation
+        public Calculation $calculation,
+        public ?Recomendation $recomendation
     )
     {
         //
