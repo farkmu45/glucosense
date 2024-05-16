@@ -16,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class HistoryResource extends Resource
 {
@@ -32,12 +33,14 @@ class HistoryResource extends Resource
         return false;
     }
 
-    public static function form(Form $form): Form
+    public static function canView(Model $record): bool
     {
-        return $form
-            ->schema([
-                //
-            ]);
+        return $record->user_id === auth()->user()->id;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return false;
     }
 
     public static function getEloquentQuery(): Builder
