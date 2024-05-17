@@ -34,6 +34,7 @@ class RecomendationResource extends Resource
                             'TYPE_1' => 'Type 1 diabetes',
                             'TYPE_2' => 'Type 2 diabetes',
                         ])
+                        ->unique('recomendations', 'disease', ignoreRecord: true)
                         ->required(),
                     RichEditor::make('recomendation')
                         ->label('Recomendation'),
