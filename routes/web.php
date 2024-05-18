@@ -10,3 +10,8 @@
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+use App\Models\Calculation;
+use Illuminate\Support\Facades\Route;
+
+Route::get('report/{calculation}', fn (Calculation $calculation) => view('report', compact('calculation')));
