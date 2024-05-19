@@ -31,7 +31,7 @@
       <div class="mb-4">
         <h3 class="mb-2 text-lg font-semibold">Recommendations:</h3>
         <div class="list-disc pl-5">
-          {!! \App\Models\Recomendation::find($calculation->result)->recomendation !!}
+          {!! \App\Models\Recomendation::find($calculation->result)->recomendation ?? 'No recomendation' !!}
         </div>
       </div>
       <div>
